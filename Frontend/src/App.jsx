@@ -1,11 +1,17 @@
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './App.css'
+import Home from './components/Home'
 
 function App() {
+   const browserRouter = createBrowserRouter([
+    {
+      path: "/",
+      element: <Home />,
+    },
+  ])
 
   return (
-    <>
-      <h1>Frontend</h1>
-    </>
+    <RouterProvider router={browserRouter} />
   )
 }
 
