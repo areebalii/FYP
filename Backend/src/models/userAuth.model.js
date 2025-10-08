@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const userAuthSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   fullName: {
     type: String,
     required: [true, "Please enter your name"],
@@ -49,4 +49,4 @@ const userAuthSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-export default mongoose.model('UserAuth', userAuthSchema);
+export default mongoose.model('User', userSchema);

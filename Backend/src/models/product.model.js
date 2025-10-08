@@ -36,7 +36,7 @@ const productSchema = new mongoose.Schema(
     colors: [String],
     sizes: [String],
 
-    // 🧠 AI integration fields
+    // AI integration fields
     embeddings: {
       type: [Number], // store vector representation for AI search
       default: [],
