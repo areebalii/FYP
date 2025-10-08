@@ -24,6 +24,22 @@ const userAuthSchema = new mongoose.Schema({
     required: [true, "Please enter your password"],
     minlength: 8,
   },
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user'
+  },
+  address: {
+    street: String,
+    city: String,
+    state: String,
+    postalCode: String,
+    country: String,
+  },
+  avatar: {
+    type: String,
+    default: 'default-avatar.jpg'
+  },
   wishlist: [
     {
       type: mongoose.Schema.Types.ObjectId,
