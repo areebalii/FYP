@@ -10,17 +10,28 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, "Description is required"],
     },
+    productImage: {   // URLs from Cloudinary
+      type: String,
+      required: [true, "Product image is required"],
+    },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: [true, "Category is required"],
+    },
     price: {
       type: Number,
       required: [true, "Price is required"],
     },
-    brand: String,
+    brand: {
+      type: String,
+      default: "Local Brand",
+    },
     stock: {
       type: Number,
       required: true,
       default: 0,
     },
-    images: [String], // URLs from Cloudinary
     rating: {
       type: Number,
       default: 0,
