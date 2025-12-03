@@ -1,5 +1,8 @@
 import { asyncHandler } from "../utils/asyncHandler.js"
 import { ApiError } from "../utils/ApiError.js"
+import { User } from "../models/user.model.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import { ApiResponse } from "../utils/ApiResponse.js"
 
 export const registerUser = asyncHandler(async (req, res) => {
   // get user details from frontend
@@ -24,5 +27,45 @@ export const registerUser = asyncHandler(async (req, res) => {
   ) {
     throw new ApiError(400, "All fields are required")
   }
+
+  // check if user already exists
+  const existedUser = User.findOne({
+    $or: [{ email }, { username }]
+  })
+  if (existedUser) {
+    throw new ApiError(409, `User with email or username already exists`)
+  }
+
+  // get avatar file path from multer middleware
+  const avatarLocalPath = req.files?.avatar[0]?.path
+  if (!avatarLocalPath) {
+    throw new ApiError(400, "Avatar is required")
+  }
+
+  // upload avatar to cloudinary
+  const avatarImage = await uploadOnCloudinary(avatarLocalPath)
+  if (!avatarImage) {
+    throw new ApiError(500, "Error uploading avatar image")
+  }
+
+  const user = await User.create({
+    fullName,
+    avatar: avatarImage.url,
+    username: username.toLowerCase(),
+    email,
+    password,
+    address
+  })
+
+  const createdUser = await User.findById(user._id).select(
+    "-password -refreshTokens"
+  )
+  if (!createdUser) {
+    throw new ApiError(500, "some thing went wrong while registering user")
+  }
+
+  return res.status(201).json(
+    new ApiResponse(200, createdUser, "User registered successfully")
+  )
 
 })
