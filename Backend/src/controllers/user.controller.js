@@ -5,17 +5,7 @@ import { ApiResponse } from "../utils/ApiResponse.js"
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 export const registerUser = asyncHandler(async (req, res) => {
-  // get user details from frontend
-  // validation
-  // check if user already exists
-  // hash password
-  // create user object
-  // save user to database
-  // send response
-
   const { username, fullName, email, password, address, avatar } = req.body;
-  console.log("Email received:", email);
-
   // traditional way of checking each field
   // if(fullName === "") {
   //   throw new ApiError(400, "All fields are required")
@@ -36,13 +26,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(409, `User with email or username already exists`)
   }
 
-  // get avatar file path from multer middleware
-  const avatarLocalPath = req.file?.path
-  console.log("AVATAR LOCAL PATH:", avatarLocalPath);
-  console.log(process.env.CLOUDINARY_CLOUD_NAME);
-  console.log("FILES RECEIVED:", req.files);
-  console.log("BODY RECEIVED:", req.body);
-
+const avatarLocalPath = req.file?.path
   if (!avatarLocalPath) {
     throw new ApiError(400, "Avatar is required")
   }
