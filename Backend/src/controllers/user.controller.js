@@ -1,8 +1,8 @@
 import { asyncHandler } from "../utils/asyncHandler.js"
 import { ApiError } from "../utils/ApiError.js"
 import { User } from "../models/user.model.js";
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js"
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 export const registerUser = asyncHandler(async (req, res) => {
   // get user details from frontend
@@ -29,7 +29,7 @@ export const registerUser = asyncHandler(async (req, res) => {
   }
 
   // check if user already exists
-  const existedUser = User.findOne({
+  const existedUser = await User.findOne({
     $or: [{ email }, { username }]
   })
   if (existedUser) {
@@ -37,7 +37,12 @@ export const registerUser = asyncHandler(async (req, res) => {
   }
 
   // get avatar file path from multer middleware
-  const avatarLocalPath = req.files?.avatar[0]?.path
+  const avatarLocalPath = req.file?.path
+  console.log("AVATAR LOCAL PATH:", avatarLocalPath);
+  console.log(process.env.CLOUDINARY_CLOUD_NAME);
+  console.log("FILES RECEIVED:", req.files);
+  console.log("BODY RECEIVED:", req.body);
+
   if (!avatarLocalPath) {
     throw new ApiError(400, "Avatar is required")
   }
