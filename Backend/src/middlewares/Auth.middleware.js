@@ -4,7 +4,7 @@ import { asyncHandler } from "../utils/asyncHandler";
 import jwt from "jsonwebtoken"
 
 
-export const AuthMiddleware = asyncHandler(async (req, res, next) => {
+export const verifyJwt = asyncHandler(async (req, res, next) => {
   try {
     const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
     if (!token) {
