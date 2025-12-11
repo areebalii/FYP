@@ -84,12 +84,13 @@ export const loginUser = asyncHandler(async (req, res) => {
   // send token to frontend using cookies
 
   const { username, email, password } = req.body;
-  if (!email || !username) {
+  console.log(email, username)
+  if (!email && !username) {
     throw new ApiError(400, "Username or email is required")
   }
-  if (!password) {
-    throw new ApiError(400, "Password is required")
-  }
+  // if (!password) {
+  //   throw new ApiError(400, "Password is required")
+  // }
   const user = await User.findOne(
     {
       $or: [{ email }, { username }]
