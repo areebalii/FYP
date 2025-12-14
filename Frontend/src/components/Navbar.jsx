@@ -1,0 +1,78 @@
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { Search, User } from "lucide-react"; // icons
+
+const Navbar = () => {
+  const [openProfile, setOpenProfile] = useState(false);
+
+  return (
+    <div className="navbar flex items-center justify-between py-5 font-medium relative">
+
+      {/* LOGO */}
+      <div className="logo text-xl font-bold">
+        Logo
+      </div>
+
+      {/* NAV LINKS */}
+      <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
+        <NavLink to="/" className="flex flex-col items-center gap-1">
+          <p>Home</p>
+        </NavLink>
+        <NavLink to="/collections" className="flex flex-col items-center gap-1">
+          <p>Collections</p>
+        </NavLink>
+        <NavLink to="/about" className="flex flex-col items-center gap-1">
+          <p>About</p>
+        </NavLink>
+        <NavLink to="/contact" className="flex flex-col items-center gap-1">
+          <p>Contact</p>
+        </NavLink>
+      </ul>
+
+      {/* RIGHT SIDE ICONS */}
+      <div className="flex items-center gap-6 relative">
+
+        {/* SEARCH ICON */}
+        <Search className="w-5 h-5 cursor-pointer text-gray-700" />
+
+        {/* PROFILE ICON */}
+        <div className="relative">
+          <User
+            className="w-5 h-5 cursor-pointer text-gray-700"
+            onClick={() => setOpenProfile(!openProfile)}
+          />
+
+          {/* DROPDOWN */}
+          {openProfile && (
+            <div className="absolute right-0 top-8 w-40 bg-white shadow-lg rounded-md text-sm">
+              <NavLink
+                to="/login"
+                className="block px-4 py-2 hover:bg-gray-100"
+              >
+                Login
+              </NavLink>
+              <NavLink
+                to="/register"
+                className="block px-4 py-2 hover:bg-gray-100"
+              >
+                Register
+              </NavLink>
+              <NavLink
+                to="/profile"
+                className="block px-4 py-2 hover:bg-gray-100"
+              >
+                Profile
+              </NavLink>
+              <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
+                Logout
+              </button>
+            </div>
+          )}
+        </div>
+
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
