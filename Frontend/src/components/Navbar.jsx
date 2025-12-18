@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Search, User, ShoppingCart } from "lucide-react"; // icons
+import { Search, User, ShoppingCart, Menu } from "lucide-react"; // icons
 
 const Navbar = () => {
   const [openProfile, setOpenProfile] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
   return (
     <div className="navbar flex items-center justify-between py-5 font-medium relative">
@@ -73,10 +74,45 @@ const Navbar = () => {
             </div>
           )}
         </div>
-        <Link to="cart">
-          <ShoppingCart className="w-5 h-5 cursor-pointer text-gray-700" />
+        <Link to="cart " className="relative">
+          <ShoppingCart className="w-5 h-5 cursor-pointer text-gray-700 " />
           <p className="absolute right-[-5px] top-[-3px] w-4 text-center loading-4 bg-black text-white aspect-square rounded-full text-[8px] ">12</p>
         </Link>
+
+        <Menu onClick={() => setOpenMenu(!openMenu)} className="w-5 cursor-pointer sm:hidden" />
+
+        {/* DROPDOWN for small screen */}
+        <div className={`absolute top-12 right-0 w-40 bg-white shadow-lg rounded-md text-sm sm:hidden transition-all duration-300 ${openMenu ? 'block' : 'hidden'}`}>
+          <NavLink
+            to="/"
+            className="block px-4 py-2 hover:bg-gray-100"
+            onClick={() => setOpenMenu(false)}
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/collections"
+            className="block px-4 py-2 hover:bg-gray-100"
+            onClick={() => setOpenMenu(false)}
+          >
+            Collections
+          </NavLink>
+          <NavLink
+            to="/about"
+            className="block px-4 py-2 hover:bg-gray-100"
+            onClick={() => setOpenMenu(false)}
+          >
+            About
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className="block px-4 py-2 hover:bg-gray-100"
+            onClick={() => setOpenMenu(false)}
+          >
+            Contact
+          </NavLink>
+        </div>
+
 
       </div>
     </div>
