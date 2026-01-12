@@ -1,4 +1,4 @@
-import mongoose from "mongoose";  
+import mongoose from "mongoose";
 
 const categorySchema = new mongoose.Schema(
   {
@@ -9,11 +9,9 @@ const categorySchema = new mongoose.Schema(
     subCategoryName: {
       type: String,
     },
-
-
-  
   },
   { timestamps: true }
 );
-s
-export const Category = mongoose.model("Category", categorySchema);
+
+const Category = mongoose.model("Category", categorySchema);
+export default Category;
