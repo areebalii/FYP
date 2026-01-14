@@ -22,6 +22,7 @@ const productSchema = new mongoose.Schema(
     price: {
       type: Number,
       required: [true, "Price is required"],
+      min: [0, "Price cannot be negative"],
     },
     brand: {
       type: String,
@@ -35,19 +36,16 @@ const productSchema = new mongoose.Schema(
     rating: {
       type: Number,
       default: 0,
+      min: 0,
+      max: 5,
     },
+
     numReviews: {
       type: Number,
       default: 0,
     },
     colors: [String],
     sizes: [String],
-
-    // AI integration fields
-    embeddings: {
-      type: [Number], // store vector representation for AI search
-      default: [],
-    },
   },
   { timestamps: true }
 );

@@ -5,10 +5,16 @@ const categorySchema = new mongoose.Schema(
     categoryName: {
       type: String,
       required: [true, "Category name is required"],
+      unique: true,
+      trim: true,
     },
-    subCategoryName: {
-      type: String,
-    },
+    subCategories: [
+      {
+        type: String,
+        trim: true,
+      },
+    ]
+
   },
   { timestamps: true }
 );
