@@ -1,1 +1,1 @@
-export const DB_NAME = "Ai_powered_E-commerce";
+export const DB_NAME = "ai_ecom";
