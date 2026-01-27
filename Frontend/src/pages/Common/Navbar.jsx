@@ -31,7 +31,9 @@ const Navbar = () => {
           <span className='absolute -top-1 -right-2 bg-orange-600 text-white text-xs  rounded-full px-2 py-0.5 '>0</span>
         </button>
         {/* search */}
-        <SearchBar />
+        <div className='overflow-hidden'>
+          <SearchBar />
+        </div>
 
         <button>
           <HiBars3BottomRight className='h-6 w-6 text-gray-700' />
